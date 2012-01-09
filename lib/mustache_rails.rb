@@ -64,17 +64,12 @@ class Mustache
       end
     end
 
-    class TemplateHandler < ActionView::Template::Handler
-
-      include ActionView::Template::Handlers::Compilable
-
-      self.default_format = :mustache
-
+    class TemplateHandler
       # @return [String] its evaled in the context of the action view
       # hence the hack below
       #
       # @param [ActionView::Template]
-      def compile(template)
+      def call(template)
         mustache_class = mustache_class_from_template(template)
         mustache_class.template_file = mustache_template_file(template)
 
@@ -113,5 +108,5 @@ class Mustache
   end
 end
 
-::ActiveSupport::Dependencies.autoload_paths << Rails.root.join("app", "views")
+::ActiveSupport::Dependencies.autoload_paths << Rails.root.join("app", "views") if Defined?(Rails)
 ::ActionView::Template.register_template_handler(:rb, Mustache::Rails::TemplateHandler)
