@@ -108,5 +108,5 @@ class Mustache
   end
 end
 
-::ActiveSupport::Dependencies.autoload_paths << Rails.root.join("app", "views")
+::ActiveSupport::Dependencies.autoload_paths << Rails.root.join("app", "views") if Defined?(Rails)
 ::ActionView::Template.register_template_handler(:rb, Mustache::Rails::TemplateHandler)
