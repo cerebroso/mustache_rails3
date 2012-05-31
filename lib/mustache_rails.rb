@@ -70,12 +70,7 @@ class Mustache
       end
     end
 
-    class TemplateHandler < ActionView::Template::Handler
-
-      include ActionView::Template::Handlers::Compilable
-
-      self.default_format = :mustache
-
+    class TemplateHandler
       # @return [String] its evaled in the context of the action view
       # hence the hack below
       #
